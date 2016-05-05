@@ -24,8 +24,9 @@ class byzanz_gui(QtGui.QMainWindow):
         #self._sys_icon.setIcon(QtGui.QIcon.fromTheme("document-save"))
         self._sys_icon.setVisible(True)
 
-       	self.setAttribute( QtCore.Qt.WA_TranslucentBackground )
-        
+        self.setAutoFillBackground(False)
+       	self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+
         #self.setWindowFlags(QtCore.Qt.CustomizeWindowHint | QtCore.Qt.Tool)
 
         self._timer = QtCore.QTimer(self)
@@ -62,7 +63,6 @@ class byzanz_gui(QtGui.QMainWindow):
 
     def resizeEvent(self, _):
         self.update_size_info()
-        self.frm_main.repaint()
 
     def update_size_info(self):
         g = self.geometry()
@@ -71,14 +71,12 @@ class byzanz_gui(QtGui.QMainWindow):
         self.setWindowTitle("%s - byzanz-gui" % (self._dimensions, ))
 
     def display(self, filename):
-
+        self.l = QtGui.QLabel()
         movie = QtGui.QMovie(filename)
-        self.lbl_hint.setMovie(movie)
+        self.l.setMovie(movie)
+        self.l.show()
         movie.start()
-
-        #myPixmap = QtGui.QPixmap(filename)
-        #myScaledPixmap = myPixmap.scaled(self.lbl_hint.size(), QtCore.Qt.KeepAspectRatio)
-        #self.lbl_hint.setPixmap(myScaledPixmap)
+        self.l.adjustSize() 
 
     def decode(self, item):
         try:

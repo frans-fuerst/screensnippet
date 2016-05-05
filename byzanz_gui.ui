@@ -119,7 +119,7 @@
           </palette>
          </property>
          <property name="text">
-          <string>cover the record area with this window</string>
+          <string>cover the record area with the blue frame</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -197,6 +197,9 @@
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
