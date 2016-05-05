@@ -14,7 +14,7 @@ class byzanz_gui(QtGui.QMainWindow):
 
     def __init__(self):
         super(byzanz_gui, self).__init__()
-        uic.loadUi(os.path.join(APP_DIR, 'byzanz-gui.ui'), self)
+        uic.loadUi(os.path.join(APP_DIR, 'byzanz_gui.ui'), self)
 
         self.setWindowTitle("byzanz-gui")
         self.pb_record.clicked.connect(self.on_pbRecord_clicked)
@@ -24,7 +24,10 @@ class byzanz_gui(QtGui.QMainWindow):
         #self._sys_icon.setIcon(QtGui.QIcon.fromTheme("document-save"))
         self._sys_icon.setVisible(True)
 
+       	self.setAttribute( QtCore.Qt.WA_TranslucentBackground )
+        
         #self.setWindowFlags(QtCore.Qt.CustomizeWindowHint | QtCore.Qt.Tool)
+
         self._timer = QtCore.QTimer(self)
         self._timer.setInterval(1000)
         self._timer.timeout.connect(self.on_timer_timeout)
@@ -55,12 +58,13 @@ class byzanz_gui(QtGui.QMainWindow):
         self._timer.start()
 
     def moveEvent(self, _):
-        self.update()
+        self.update_size_info()
 
     def resizeEvent(self, _):
-        self.update()
+        self.update_size_info()
+        self.frm_main.repaint()
 
-    def update(self):
+    def update_size_info(self):
         g = self.geometry()
         self._dimensions = g.x(), g.y(), g.width(), g.height()
         print("update", self._dimensions)
