@@ -2,9 +2,12 @@
 record screencasts in gif using `byzanz` - make selecting the recorded area and running the command easy with screensnippet
 
 Record your workflow:
+
 ![CRV screencast](media/howto-bg.gif)
 
+
 And post it online:
+
 ![CRV screencast](media/example-screencast.gif)
 
 
