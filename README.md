@@ -1,5 +1,6 @@
 # screensnippet
-record screencasts in gif using `byzanz` - make selecting the recorded area and running the command easy with screensnippet
+record cute little **gif**-screencasts using `byzanz` - and make selecting the
+recorded area and running the command easy with `screensnippet`:
 
 Record your workflow:
 
