@@ -28,10 +28,13 @@ class byzanz_gui(QtGui.QMainWindow):
        	self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
 
         #self.setWindowFlags(QtCore.Qt.CustomizeWindowHint | QtCore.Qt.Tool)
+        #self.setWindowFlags(QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
 
         self._timer = QtCore.QTimer(self)
         self._timer.setInterval(1000)
         self._timer.timeout.connect(self.on_timer_timeout)
+
+        self.statusBar().setSizeGripEnabled(True)
 
     def on_timer_timeout(self):
         self._countdown -= 1
