@@ -3,6 +3,7 @@
 
 import sys
 import os
+import signal
 import logging
 import subprocess
 from PyQt4 import QtGui, QtCore, uic
@@ -25,7 +26,7 @@ class byzanz_gui(QtGui.QMainWindow):
         self._sys_icon.setVisible(True)
 
         self.setAutoFillBackground(False)
-       	self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+        self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
 
         #self.setWindowFlags(QtCore.Qt.CustomizeWindowHint | QtCore.Qt.Tool)
         #self.setWindowFlags(QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
@@ -47,8 +48,8 @@ class byzanz_gui(QtGui.QMainWindow):
             _filename = str(self.le_filename.text())
             _cmd = ['byzanz-record', '--cursor', '--delay=%d' % 0, '--verbose',
                 '--duration=%d' % self.sb_duration.value(),
-                '--x=%d' % self._dimensions[0], '--y=%d' % self._dimensions[1], 
-                '--width=%d' % self._dimensions[2], '--height=%d' % self._dimensions[3], 
+                '--x=%d' % self._dimensions[0], '--y=%d' % self._dimensions[1],
+                '--width=%d' % self._dimensions[2], '--height=%d' % self._dimensions[3],
                 _filename]
 
             print("run: ", ' '.join(_cmd))
@@ -56,7 +57,7 @@ class byzanz_gui(QtGui.QMainWindow):
             p.wait()
             self.setVisible(True)
             self.display(_filename)
-            
+
     def on_pbRecord_clicked(self):
         self._countdown = 6
         self._timer.start()
@@ -79,8 +80,12 @@ class byzanz_gui(QtGui.QMainWindow):
         self.l.setMovie(movie)
         self.l.show()
         movie.start()
-        self.l.adjustSize() 
+        self.l.adjustSize()
 
+def sigint_handler(*args):
+    sys.stderr.write('\r')
+    print(args)
+    QtGui.QApplication.quit()
 
 def main():
     logging.basicConfig(
@@ -96,8 +101,8 @@ def main():
     ex = byzanz_gui()
     ex.show()
 
-#    for s in (signal.SIGABRT, signal.SIGINT, signal.SIGSEGV, signal.SIGTERM):
-#        signal.signal(s, lambda signal, frame: sigint_handler(signal, ex))
+    for s in (signal.SIGABRT, signal.SIGINT, signal.SIGSEGV, signal.SIGTERM):
+        signal.signal(s, lambda signal, frame: sigint_handler(signal, ex))
 
     # catch the interpreter every now and then to be able to catch signals
     timer = QtCore.QTimer()
@@ -106,7 +111,6 @@ def main():
 
     log.info('run Qt application')
     sys.exit(app.exec_())
-
 
 if __name__ == '__main__':
     main()
