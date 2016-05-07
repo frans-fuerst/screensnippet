@@ -22,20 +22,20 @@ class byzanz_gui(QtGui.QMainWindow):
         self._dimensions = None
 
         self._sys_icon = QtGui.QSystemTrayIcon()
-        #self._sys_icon.setIcon(QtGui.QIcon.fromTheme("document-save"))
+        # self._sys_icon.setIcon(QtGui.QIcon.fromTheme("document-save"))
         self._sys_icon.setVisible(True)
 
         self.setAutoFillBackground(False)
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
 
-        #self.setWindowFlags(QtCore.Qt.CustomizeWindowHint | QtCore.Qt.Tool)
-        #self.setWindowFlags(QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
+        # self.setWindowFlags(QtCore.Qt.CustomizeWindowHint | QtCore.Qt.Tool)
+        # self.setWindowFlags(QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
 
         self._timer = QtCore.QTimer(self)
         self._timer.setInterval(1000)
         self._timer.timeout.connect(self.on_timer_timeout)
 
-        self.statusBar().setSizeGripEnabled(True)
+        # self.statusBar().setSizeGripEnabled(True)
 
     def on_timer_timeout(self):
         self._countdown -= 1
