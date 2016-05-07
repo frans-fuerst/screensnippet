@@ -19,6 +19,6 @@ Get & Install
     # or
     dnf install byzanz
 
-    git clone https://github.com/frans-fuerst/byzanz-gui.git
-    ./byzanz-gui/byzanz-gui
+    git clone https://github.com/frans-fuerst/screensnippet.git
+    ./screensnippet/ssnippet
 

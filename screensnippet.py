@@ -81,13 +81,6 @@ class byzanz_gui(QtGui.QMainWindow):
         movie.start()
         self.l.adjustSize() 
 
-    def decode(self, item):
-        try:
-            return item.decode()
-        except UnicodeDecodeError:
-            log.error('could not decode item "%s"', item)
-            return item.decode(errors='ignore')
-
 
 def main():
     logging.basicConfig(
