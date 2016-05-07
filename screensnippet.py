@@ -19,7 +19,10 @@ class byzanz_gui(QtGui.QMainWindow):
 
         self.setWindowTitle("byzanz-gui")
         self.pb_record.clicked.connect(self.on_pbRecord_clicked)
+
         self._dimensions = None
+        self._playback_label = None
+        self._countdown = None
 
         self._sys_icon = QtGui.QSystemTrayIcon()
         # self._sys_icon.setIcon(QtGui.QIcon.fromTheme("document-save"))
@@ -47,14 +50,14 @@ class byzanz_gui(QtGui.QMainWindow):
             self.setVisible(False)
             _filename = str(self.le_filename.text())
             _cmd = ['byzanz-record', '--cursor', '--delay=%d' % 0, '--verbose',
-                '--duration=%d' % self.sb_duration.value(),
-                '--x=%d' % self._dimensions[0], '--y=%d' % self._dimensions[1],
-                '--width=%d' % self._dimensions[2], '--height=%d' % self._dimensions[3],
-                _filename]
+                    '--duration=%d' % self.sb_duration.value(),
+                    '--x=%d' % self._dimensions[0], '--y=%d' % self._dimensions[1],
+                    '--width=%d' % self._dimensions[2], '--height=%d' % self._dimensions[3],
+                    _filename]
 
             print("run: ", ' '.join(_cmd))
-            p = subprocess.Popen(_cmd)
-            p.wait()
+            _process = subprocess.Popen(_cmd)
+            _process.wait()
             self.setVisible(True)
             self.display(_filename)
 
@@ -69,22 +72,22 @@ class byzanz_gui(QtGui.QMainWindow):
         self.update_size_info()
 
     def update_size_info(self):
-        g = self.geometry()
-        self._dimensions = g.x(), g.y(), g.width(), g.height()
+        _geom = self.geometry()
+        self._dimensions = _geom.x(), _geom.y(), _geom.width(), _geom.height()
         print("update", self._dimensions)
         self.setWindowTitle("%s - byzanz-gui" % (self._dimensions, ))
 
     def display(self, filename):
-        self.l = QtGui.QLabel()
+        self._playback_label = QtGui.QLabel()
         movie = QtGui.QMovie(filename)
-        self.l.setMovie(movie)
-        self.l.show()
+        self._playback_label.setMovie(movie)
+        self._playback_label.show()
         movie.start()
-        self.l.adjustSize()
+        self._playback_label.adjustSize()
 
-def sigint_handler(*args):
+
+def sigint_handler(*_):
     sys.stderr.write('\r')
-    print(args)
     QtGui.QApplication.quit()
 
 def main():
@@ -101,8 +104,8 @@ def main():
     ex = byzanz_gui()
     ex.show()
 
-    for s in (signal.SIGABRT, signal.SIGINT, signal.SIGSEGV, signal.SIGTERM):
-        signal.signal(s, lambda signal, frame: sigint_handler(signal, ex))
+    for _signal in (signal.SIGABRT, signal.SIGINT, signal.SIGTERM):
+        signal.signal(_signal, lambda signr, frame: sigint_handler(signr, ex))
 
     # catch the interpreter every now and then to be able to catch signals
     timer = QtCore.QTimer()
