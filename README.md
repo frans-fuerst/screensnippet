@@ -11,8 +11,8 @@ And post it online:
 
 ![CRV screencast](media/example-screencast.gif)
 
-Get & Install
-~~~~~~~~~~~~~
+## Get & Install
+
 
     git clone https://github.com/frans-fuerst/screensnippet.git
 
@@ -25,16 +25,16 @@ or alternatively you can place a symlink somewhere your `$PATH` environment vari
     cd ./screensnippet
     ln -s `pwd`/ssnippet ~/bin/
 
-Requirements
-~~~~~~~~~~~~
+## Requirements
 
-* `byzanz` (screensnippet is just a frontent)
 
-     apt-get install byzanz
-     # or
-     dnf install byzanz
+### `byzanz` (screensnippet is just a frontent)
 
-* PyQt4 for your Python distribution
+    apt-get install byzanz
+    or
+    dnf install byzanz
+  
+### PyQt4 for your Python distribution
 
-     dnf install python3-PyQt4   # on Fedora
+    dnf install python3-PyQt4   # on Fedora
     
